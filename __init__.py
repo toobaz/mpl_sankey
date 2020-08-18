@@ -104,6 +104,9 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
         l_sizes = data.groupby(var_left)[var_weight].sum()
         r_sizes = data.groupby(var_right)[var_weight].sum()
 
+        # Drop empty cats (https://github.com/pandas-dev/pandas/issues/8559):
+        l_sizes, r_sizes = (s.pipe(lambda x : x[x>0]) for s in (l_sizes, r_sizes))
+
         # Map weights to drawn sizes:
         l_shares = l_sizes * factor
         r_shares = r_sizes * factor
