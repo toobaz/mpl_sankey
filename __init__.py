@@ -85,7 +85,8 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
     phases = data.shape[1] - 2
 
 
-    all_labels = data.iloc[1:].stack().unique()
+    all_labels = data.iloc[:, 1:].stack().unique()
+
     colors = dict(zip(all_labels,
                       cmap(np.arange(0, len(all_labels))/len(all_labels))))
 
