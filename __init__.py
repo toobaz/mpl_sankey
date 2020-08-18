@@ -109,8 +109,8 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
         r_shares = r_sizes * factor
 
         # Distribute gap space among gaps:
-        l_gaps = GAPS / (len(l_shares) - 1)
-        r_gaps = GAPS / (len(r_shares) - 1)
+        l_gaps = GAPS / max((len(l_shares) - 1), 1)
+        r_gaps = GAPS / max((len(r_shares) - 1), 1)
 
         # Compute blocks positions, including gaps:
         l_starts = (l_shares + l_gaps).cumsum().shift().fillna(0)
