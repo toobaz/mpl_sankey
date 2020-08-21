@@ -30,6 +30,10 @@ lists of lists are also accepted.
 ## Example
 
 ```python
+from mpl_sankey import sankey
+from matplotlib import pyplot as plt
+import pandas as pd
+
 data = pd.DataFrame([[1, 'a', 1, 'I', 1, 'success'],
                      [2, 'b', 2, 'III', 2, 'discard'],
                      [1, 'b', 1, 'II', 2, 'success'],
