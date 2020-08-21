@@ -14,15 +14,17 @@ out the spatial distribution of nodes/flows.
 There is a single method, `sankey()`, which accepts one argument `data` and
 several optional keyword arguments.
 
-`data` must be a 2-dimensional tabular object: best results are obtained with
-`pandas.DataFrame`s, but `numpy.array`s and simple lists of lists are also
-accepted.
+`data` must be a 2-dimensional tabular object with at least 3 columns: best
+results are obtained with `pandas.DataFrame`s, but `numpy.array`s and simple
+lists of lists are also accepted.
 
-## Installation and dependencies
-
-You can install this package through PyPi with `pip install mpl_sankey`.
-
-The package requires `pandas` (and, obviously, `matplotlib`) to work.
+- each row corresponds to a "flow"
+- the first column stores the weights (that is, the tickness of each flow
+  drawn), and must be an `int` or `float`
+- each other column denotes a node (by its label, which can have any type)
+  where the flow passes, at each stage
+- if `data` is a `pandas.DataFrame`, then the column names are represented on
+  top of each stage
 
 
 ## Example
@@ -46,4 +48,11 @@ plt.savefig('featured.png', bbox_inches='tight')
 
 Find more in the [Examples notebook](https://github.com/toobaz/mpl_sankey/blob/master/notebooks/Examples.ipynb).
 
+
+## Installation and dependencies
+
+You can install this package through PyPi with `pip install mpl_sankey`, or
+just clone the repo from github.
+
+The package requires `pandas` (and, obviously, `matplotlib`) to work.
 
