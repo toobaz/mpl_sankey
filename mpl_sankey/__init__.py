@@ -49,7 +49,8 @@ def _draw_flow(start, end, width, left, right, color):
 
 
 def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
-           labels_color='black', titles_color='black'):
+           labels_color='black', titles_color='black',
+           sort_flows_by_nodes=False):
     """
     Draw a sankey diagram.
 
@@ -77,6 +78,11 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
 
     titles_color : color or None, default: 'black'
         Color to be used for titles, None to hide them.
+
+    sort_flows_by_nodes : Boolean, default: False
+        Whether flows from/to a given node should be sorted based on the
+        position of the starting and ending nodes - the default is to sort them
+        based on their position in the passed data.
     """
 
     data = pd.DataFrame(data)
@@ -160,9 +166,20 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
                                fontsize=20, color=titles_color)
 
         # Draw flows:
-        for idx, (weight, start, end) in data[[var_weight,
-                                               var_left,
-                                               var_right]].iterrows():
+        flows_list = data[[var_weight,
+                           var_left,
+                           var_right]]
+        if sort_flows_by_nodes:
+            # Avoid (probably unjustified - we're working on entire columns)
+            # SettingWithCopyWarning:
+            flows_list = flows_list.copy()
+            for a_var, starts in (var_left, l_starts), (var_right, r_starts):
+                dtype = pd.CategoricalDtype(categories=starts.index,
+                                            ordered=True)
+                flows_list[a_var] = flows_list[a_var].astype(dtype)
+            flows_list = flows_list.sort_values([var_left, var_right])
+
+        for idx, (weight, start, end) in flows_list.iterrows():
             width = weight * factor
             l = l_starts.loc[start]
             r = r_starts.loc[end]
