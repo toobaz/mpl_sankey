@@ -58,8 +58,8 @@ def _node_text(start, size, node_sizes):
     return node_sizes.format(label=start, size=size)
 
 def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
-           labels_color='black', titles_color='black', node_sizes=False,
-           sort_flows_by_nodes=False):
+           labels_color='black', titles_color='black', labels_size=20,
+           titles_size=20, node_sizes=False, sort_flows_by_nodes=False):
     """
     Draw a sankey diagram.
 
@@ -87,6 +87,12 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
 
     titles_color : color or None, default: 'black'
         Color to be used for titles, None to hide them.
+
+    labels_size : int, default: 20
+        Font size for node labels.
+
+    titles_size : int, default: 20
+        Font size for titles.
 
     node_sizes : Boolean or string, default: False
         Whether to show node sizes close to node labels.
@@ -178,7 +184,7 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
                                    text,
                                    horizontalalignment='center',
                                    verticalalignment='center',
-                                   fontsize=20, color=labels_color)
+                                   fontsize=labels_size, color=labels_color)
 
             # Draw titles:
             if text_x != -1 and titles_color is not None:
@@ -187,7 +193,7 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
                                var_left if pos == 'left' else var_right,
                                horizontalalignment='center',
                                verticalalignment='bottom',
-                               fontsize=20, color=titles_color)
+                               fontsize=titles_size, color=titles_color)
 
         # Draw flows:
         flows_list = data[[var_weight,
