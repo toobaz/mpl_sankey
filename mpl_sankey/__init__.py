@@ -173,8 +173,12 @@ def sankey(data, cmap=plt.get_cmap('jet_r'), flows_color=None,
                 # Draw labels text:
                 if text_x != -1 and labels_color is not None:
                     if node_sizes is not False:
-                        size = (r_sizes.iloc[idx] if phase
-                                else l_sizes.iloc[idx])
+                        if phase == 0 and pos == 'right':
+                            size = r_sizes.iloc[idx]
+                        elif phase:
+                            size = r_sizes.iloc[idx]
+                        else:
+                            size = l_sizes.iloc[idx]
                         text = _node_text(start, size, node_sizes)
                     else:
                         text = f"{start}"
