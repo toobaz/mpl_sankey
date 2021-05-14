@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mpl_sankey",
-    version="0.0.1",
+    version="0.1.0",
     author="Pietro Battiston",
     author_email="me@pietrobattiston.it",
     description="Sankey plots with Matplotlib",

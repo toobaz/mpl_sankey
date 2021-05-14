@@ -7,6 +7,7 @@ from matplotlib.path import Path
 
 from matplotlib.collections import PatchCollection
 
+__version__ = '0.1.0'
 
 # Share of total width left empty (same in each phase):
 GAPS = .1
